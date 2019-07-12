@@ -93,7 +93,7 @@ def imshow_det_bboxes(img,
         thickness (int): Thickness of lines.
         font_scale (float): Font scales of texts.
         show (bool): Whether to show the image.
-        win_name (str): The window name.
+        win_name (str): The window name.8
         wait_time (int): Value of waitKey param.
         out_file (str or None): The filename to write the image.
     """
@@ -103,6 +103,7 @@ def imshow_det_bboxes(img,
     assert bboxes.shape[1] == 4 or bboxes.shape[1] == 5
     img = imread(img)
 
+    writtenResult = []
     if score_thr > 0:
         assert bboxes.shape[1] == 5
         scores = bboxes[:, -1]
@@ -112,7 +113,7 @@ def imshow_det_bboxes(img,
 
     bbox_color = color_val(bbox_color)
     text_color = color_val(text_color)
-
+    
     for bbox, label in zip(bboxes, labels):
         bbox_int = bbox.astype(np.int32)
         left_top = (bbox_int[0], bbox_int[1])
@@ -125,8 +126,11 @@ def imshow_det_bboxes(img,
             label_text += '|{:.02f}'.format(bbox[-1])
         cv2.putText(img, label_text, (bbox_int[0], bbox_int[1] - 2),
                     cv2.FONT_HERSHEY_COMPLEX, font_scale, text_color)
+        writtenResult.append({"label": label_text, "leftTop": left_top, "rightBottom": right_bottom})
 
     if show:
         imshow(img, win_name, wait_time)
     if out_file is not None:
         imwrite(img, out_file)
+    print(writtenResult)
+    return writtenResult
