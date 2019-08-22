@@ -133,5 +133,5 @@ def imshow_det_bboxes(img,
         imshow(img, win_name, wait_time)
     if out_file is not None:
         imwrite(img, out_file)
-    print(writtenResult)
+    # print(writtenResult)
     return writtenResult
