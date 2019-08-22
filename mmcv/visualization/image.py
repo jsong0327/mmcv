@@ -127,7 +127,7 @@ def imshow_det_bboxes(img,
         cv2.putText(img, label_text, (bbox_int[0], bbox_int[1] - 2),
                     cv2.FONT_HERSHEY_COMPLEX, font_scale, text_color)
         labels = label_text.split('|')
-        writtenResult.append({"label": labels[0], "confidence": labels[1], "leftTop": left_top, "rightBottom": right_bottom})
+        writtenResult.append({"label": labels[0], "score": float(labels[1]), "leftTop": left_top, "rightBottom": right_bottom})
 
     if show:
         imshow(img, win_name, wait_time)
